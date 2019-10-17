@@ -18,7 +18,7 @@ async function run() {
 
     core.info(title);
     const matches = title.match(/(\w+-\d+)/)
-    if (not (matches)) {
+    if (!(matches)) {
       core.warning("Jira ticket not in PR title");
       return;
     }
