@@ -17,7 +17,11 @@ async function run() {
     }
 
     core.info(title);
-    const jiraTicketKey = title.match(/(\w+-\d+)/)[0];
+    const matches = title.match(/(\w+-\d+)/)
+    if (not (matches)) {
+      core.warning("Jira ticket not in PR title");
+      return;
+    }
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
     core.info(body);
