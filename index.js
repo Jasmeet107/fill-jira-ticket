@@ -21,7 +21,7 @@ async function run() {
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
     core.info(body);
-    if (body.includes(`https://notarize.atlassian.net/browse/${jiraTicketKey}`)) {
+    if (body.includes(jiraTicketKey)) {
       core.warning('PR body is prefixed already - no updates made');
       return;
     }
