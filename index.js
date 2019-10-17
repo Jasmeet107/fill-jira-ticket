@@ -40,7 +40,7 @@ async function run() {
       request.body = body.replace(linkRegex, lineToAdd)
     } else {
       core.info("Adding line to PR body");
-      request.body = lineToAdd.contact('\n', body);
+      request.body = lineToAdd.concat('\n', body);
     }
 
     core.debug(`new body: ${request.body}`)
