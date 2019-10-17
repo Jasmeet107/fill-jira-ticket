@@ -20,6 +20,7 @@ async function run() {
     const jiraTicketKey = title.match(/(\w+-\d+)/)[0];
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
+    core.info(body);
     if (body.includes(`https://notarize.atlassian.net/browse/${jiraTicketKey}`)) {
       core.warning('PR body is prefixed already - no updates made');
       return;
@@ -34,7 +35,7 @@ async function run() {
     linkRegex = /^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/
     lineToAdd = `:ticket: [JIRA ticket](https://notarize.atlassian.net/browse/${jiraTicketKey})`
     lineExists = body.match(linkRegex)
-    if (lineExists.length > 0) {
+    if (lineExists) {
       core.info("Line exists in PR body without ticket");
       request.body = body.replace(linkRegex, lineToAdd)
     } else {
