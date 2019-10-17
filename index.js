@@ -9,12 +9,14 @@ async function run() {
     }
 
     const title = github.context.payload.pull_request.title;
+    core.info(title);
     const isAdhoc = title.includes('ADHOC') || title.includes('STORYBOOK');
     if (isAdhoc) {
       core.warning("PR is adhoc or storybook -- no updates made"); 
       return;
     }
 
+    core.info(title);
     const jiraTicketKey = title.match(new RegExp("/(\w+-\d+)/"))[0];
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
