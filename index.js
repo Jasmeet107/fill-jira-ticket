@@ -17,7 +17,7 @@ async function run() {
     }
 
     core.info(title);
-    const jiraTicketKey = title.match(new RegExp("/(\w+-\d+)/"))[0];
+    const jiraTicketKey = title.match("/(\w+-\d+)/")[0];
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
     if (body.contains(`https://notarize.atlassian.net/browse/${jiraTicketKey}`)) {
@@ -33,10 +33,10 @@ async function run() {
 
     linkRegex = "/(?m)^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/"
     lineToAdd = `:ticket: [JIRA ticket](https://notarize.atlassian.net/browse/${jiraTicketKey})`
-    lineExists = body.match(new RegExp(linkRegex))
+    lineExists = body.match(linkRegex)
     if (lineExists.length > 0) {
       core.info("Line exists in PR body without ticket");
-      request.body = body.replace(new RegExp(linkRegex), lineToAdd)
+      request.body = body.replace(linkRegex, lineToAdd)
     } else {
       core.info("Adding line to PR body");
       request.body = lineToAdd.contact('\n', body);
