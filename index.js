@@ -22,6 +22,7 @@ async function run() {
       core.warning("Jira ticket not in PR title");
       return;
     }
+    const jiraTicketKey = matches[0];
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
     core.info(body);
