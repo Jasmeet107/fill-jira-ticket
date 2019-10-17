@@ -17,7 +17,7 @@ async function run() {
     }
 
     core.info(title);
-    const jiraTicketKey = title.match("/(\w+-\d+)/")[0];
+    const jiraTicketKey = title.match(/(\w+-\d+)/)[0];
     core.info(`Jira Ticket Key: ${jiraTicketKey}`);
     const body = github.context.payload.pull_request.body;
     if (body.contains(`https://notarize.atlassian.net/browse/${jiraTicketKey}`)) {
@@ -31,7 +31,7 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
     }
 
-    linkRegex = "/(?m)^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/"
+    linkRegex = /(?m)^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/
     lineToAdd = `:ticket: [JIRA ticket](https://notarize.atlassian.net/browse/${jiraTicketKey})`
     lineExists = body.match(linkRegex)
     if (lineExists.length > 0) {
