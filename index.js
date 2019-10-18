@@ -12,7 +12,7 @@ async function run() {
     core.info(title);
     const isAdhoc = title.includes('ADHOC') || title.includes('STORYBOOK');
     if (isAdhoc) {
-      core.warning("PR is adhoc or storybook -- no updates made"); 
+      core.info("PR is adhoc or storybook -- no updates made"); 
       return;
     }
 
@@ -27,7 +27,7 @@ async function run() {
     const body = github.context.payload.pull_request.body;
     core.info(body);
     if (body.includes(jiraTicketKey)) {
-      core.warning('PR body is prefixed already - no updates made');
+      core.info('PR body is prefixed already - no updates made');
       return;
     }
 
