@@ -37,7 +37,7 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
     }
 
-    linkRegex = /^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/
+    linkRegex = /^(?=.*?\bJIRA\b)(?=.*?\bticket\b).*$/m
     lineToAdd = `:ticket: [JIRA ticket](https://notarize.atlassian.net/browse/${jiraTicketKey})`
     lineExists = body.match(linkRegex)
     if (lineExists) {
